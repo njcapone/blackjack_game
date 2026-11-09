@@ -1,5 +1,5 @@
 #include <iostream>
-#include <stdio>
+#include "Game.h" // Include the game header file
 
 int main(){
     // Game... start!

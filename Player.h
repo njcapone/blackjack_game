@@ -3,13 +3,13 @@
 
 #include <string>
 #include "Card.h"
+#include "Hand.h"
 
 class Player{
     public:
         Player(); // default constructor
         Player(std::string name, int wallet); // constructor with parameters
         std::string get_name();
-        virtual Card get_hand();
         int get_wallet();
         int get_bet();
 
@@ -21,7 +21,7 @@ class Player{
 
     private:
         std::string m_name; // what will I call you
-        Card *m_hand[13]; // usual possible amount of cards
+        Hand m_hand;
         int m_wallet; // how much money
         int m_bet; // self explanatory
 };
