@@ -1,5 +1,7 @@
 #ifndef DEALER_H
 #define DEALER_H
+
+#include "Card.h"
 class Dealer{
     public:
         Card get_hand();
@@ -9,5 +11,5 @@ class Dealer{
     
     private:
         Card *m_hand[13];
-}
+};
 #endif

@@ -1,17 +1,23 @@
 #ifndef CARD_H
 #define CARD_H
+
+#include <string>
+// Card Parent Class
 class Card{
     public:
-        string get_name();
-        void set_name(string name);
-        int get_value();
+        Card(); // default constructor
+        Card(std::string name, int value); // constructor with parameters
+        std::string get_name();
+        void set_name(std::string name);
+        virtual int get_value();
         void set_value(int value);
-        string get_suit();
-        void set_suit();
+        bool is_ace(); // check if card is an Ace or not
+
 
     private:
-        string m_name; // the player will see this
-        int m_values[2]; // ace can 11 or 1
-        string m_suit; // just good to have it
-}
+        std::string m_name; // the player will see this
+        int m_value; // ace can 11 or 1
+        bool m_isAce; // true if the card is an ace, false otherwise
+
+};
 #endif
