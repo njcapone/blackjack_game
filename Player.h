@@ -9,14 +9,14 @@ class Player{
         Player(); // default constructor
         Player(std::string name, int wallet); // constructor with parameters
         std::string get_name();
-        Card get_hand();
+        virtual Card get_hand();
         int get_wallet();
         int get_bet();
 
         void set_name(std::string name);
         void set_wallet(int value);
         void set_bet(int value);
-        void hit(); // add a card to the hand
+        virtual void hit(); // add a card to the hand
 
 
     private:
