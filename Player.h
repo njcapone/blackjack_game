@@ -9,7 +9,7 @@ class Player{
 
         void set_name(string name);
         void set_wallet(int value);
-        void set_bet(int value)
+        void set_bet(int value);
         void hit(); // add a card to the hand
 
 
