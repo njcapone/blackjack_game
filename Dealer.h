@@ -6,10 +6,11 @@
 // Dealer Class, similar to Player but with no wallet or bet
 class Dealer : public Player {
     public:
-        Card get_hand() override; // dependent on m_showFullHand, will return either the first card or the full hand
+        Dealer(); // default constructor
         bool set_showFullHand(bool showFullHand); // set whether to show the full hand or not
         Card get_first_card();
         void hit() override; // add a card to the hand
+        Hand get_hand() override; // return the hand of the dealer
     
     private:
         bool m_showFullHand;

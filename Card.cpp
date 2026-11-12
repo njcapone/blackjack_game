@@ -25,8 +25,13 @@ int Card::get_value() {
 }
 
 void Card::toggle_value() {
-    // This function is intended to be overridden in derived classes (e.g., Ace)
-    return; // Do nothing in the base class
+    if (m_isAce) {
+        if (m_value == 11) {
+            m_value = 1; // Toggle Ace value from 11 to 1
+        } else if (m_value == 1) {
+            m_value = 11; // Toggle Ace value from 1 to 11
+        }
+    }
 }
 
 void Card::set_value(int value) {

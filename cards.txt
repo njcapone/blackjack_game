@@ -1,4 +1,4 @@
-Ace of Spades,true,1,11
+Ace of Spades,true,11
 2 of Spades,false,2
 3 of Spades,false,3
 4 of Spades,false,4
@@ -11,7 +11,7 @@ Ace of Spades,true,1,11
 Jack of Spades,false,10
 Queen of Spades,false,10
 King of Spades,false,10
-Ace of Hearts,true,1,11
+Ace of Hearts,true,11
 2 of Hearts,false,2
 3 of Hearts,false,3
 4 of Hearts,false,4
@@ -24,7 +24,7 @@ Ace of Hearts,true,1,11
 Jack of Hearts,false,10
 Queen of Hearts,false,10
 King of Hearts,false,10
-Ace of Diamonds,true,1,11
+Ace of Diamonds,true,11
 2 of Diamonds,false,2
 3 of Diamonds,false,3
 4 of Diamonds,false,4
@@ -37,7 +37,7 @@ Ace of Diamonds,true,1,11
 Jack of Diamonds,false,10
 Queen of Diamonds,false,10
 King of Diamonds,false,10
-Ace of Clubs,true,1,11
+Ace of Clubs,true,11
 2 of Clubs,false,2
 3 of Clubs,false,3
 4 of Clubs,false,4

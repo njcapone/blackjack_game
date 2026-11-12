@@ -1,7 +1,7 @@
 #include <iostream>
 #include "Player.h"
 
-Player::Player() : m_name(""), m_wallet(50) {}
+Player::Player() : m_name(""), m_wallet(50), m_hand() {}
 
 Player::Player(std::string name, int wallet) : m_name(name), m_wallet(wallet) {}
 

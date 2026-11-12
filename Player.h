@@ -12,10 +12,10 @@ class Player{
         std::string get_name();
         int get_wallet();
         int get_bet();
-
         void set_name(std::string name);
         void set_wallet(int value);
         void set_bet(int value);
+        virtual Hand get_hand(); // return the hand of the player
         virtual void hit(); // add a card to the hand
 
 

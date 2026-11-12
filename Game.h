@@ -3,12 +3,15 @@
 
 #include "Player.h"
 #include "Dealer.h"
+#include "Hand.h"
 class Game{
     public:
+        Game(); 
+        ~Game();// default constructor
         bool game_start(); // start game, create a player and a dealer
         bool deal_hand(); // deal hands for both the player and the dealer
-        int judge_player(); // sum up player hand
-        int judge_dealer(); // sum up dealer hand
+        bool game_loop();
+        int judge(); // determine the winner of the game
         bool end_game(); // clear all hands, return the earnings
 
     private:
@@ -18,5 +21,10 @@ class Game{
         bool m_gameOn;
         bool m_playerWin;
         bool m_dealerWin;
+
+        Hand m_gameDeck; // the deck of cards for the game, will be loaded and shuffled at the start of the game
+        
+        // helper functions
+        void load_cards(); // load cards from file
 };
 #endif

@@ -1,11 +1,13 @@
 #include <iostream>
 #include "Hand.h"
 #include "Card.h"
-Hand::Hand() : m_top(nullptr), m_cardCount(0) {}
+Hand::Hand() : m_top(nullptr), m_cardCount(0), m_dealerHand(false) {}
 
 Hand::~Hand() {
     clear_hand(); // Clear the hand when the Hand object is destroyed
 }
+
+Hand::Hand(bool dealerHand) : m_top(nullptr), m_cardCount(0), m_dealerHand(dealerHand) {}
 
 void Hand::add_card(Card* card) {
     if (m_cardCount == 0) {
@@ -20,6 +22,16 @@ void Hand::add_card(Card* card) {
 
 Card* Hand::get_top_card() {
     return m_top; // Return the top card in the hand
+}
+
+void Hand::show_hand() {
+    Card* current = m_top; // Start from the top card
+    std::cout << "Hand: ";
+    while (current != nullptr) {
+        std::cout << current->get_name() << " "; // Print the name of the current card
+        current = current->get_next(); // Move to the next card
+    }
+    std::cout << std::endl; // New line after showing all cards
 }
 
 void Hand::clear_hand() {
@@ -39,9 +51,11 @@ int Hand::get_total_value() {
     while (current != nullptr) {
         if (current->is_ace()){
             valueAcesHigh += current->get_value(); // Add the value of the Ace (11)
-            current->toggle_value(); // Toggle the Ace value to 1 for the low total
+            current->toggle_value(); // Toggle the Ace value to 1 for the low value calculation
             valueAcesLow += current->get_value(); // Add the value of the Ace (1)
-        }else{
+            current->toggle_value(); // Toggle back to 11 for the next iteration
+
+        } else{
             valueAcesHigh += current->get_value(); // Add the value of the card
             valueAcesLow += current->get_value(); // Add the value of the card
         }
@@ -49,5 +63,10 @@ int Hand::get_total_value() {
     }
     
     // must implement logic for when high value and low value are both over 21
-    
+    // first just return the low value if both are over 21
+    if(valueAcesHigh <= 21 && valueAcesHigh >= valueAcesLow){
+        return valueAcesHigh;
+    }
+    return valueAcesLow; // return this by default if high value is over 21 or low value is higher than high value  
 }
+
