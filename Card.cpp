@@ -5,9 +5,7 @@
 Card::Card() : m_name(""), m_value(0), m_isAce(false) {}
 
 // define the constructor with parameters; ace is false by default
-Card::Card(std::string name, int value) : m_name(name), m_value(value) {
-    m_isAce = (false);
-}
+Card::Card(std::string name, int value, bool isAce) : m_name(name), m_value(value), m_isAce(isAce) {}
 
 Card::~Card() {
     // Destructor implementation (if needed)

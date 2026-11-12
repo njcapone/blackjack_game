@@ -9,7 +9,7 @@ class Card{
         virtual void toggle_value(); // only for Ace cards, toggles between 1 and 11
     public:
         Card(); // default constructor
-        Card(std::string name, int value);
+        Card(std::string name, int value, bool isAce); // constructor with parameters, ace is false by default
         ~Card(); // destructor
         std::string get_name();
         void set_name(std::string name);

@@ -15,8 +15,8 @@ class Player{
         void set_name(std::string name);
         void set_wallet(int value);
         void set_bet(int value);
-        virtual Hand get_hand(); // return the hand of the player
-        virtual void hit(); // add a card to the hand
+        Hand get_hand(); // return the hand of the player
+        virtual void hit(Card *card); // add a card to the hand
 
 
     private:

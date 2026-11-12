@@ -1,13 +1,13 @@
 #include <iostream>
 #include "Hand.h"
 #include "Card.h"
-Hand::Hand() : m_top(nullptr), m_cardCount(0), m_dealerHand(false) {}
+#include "Dealer.h"
+Hand::Hand() : m_top(nullptr), m_cardCount(0) {}
 
 Hand::~Hand() {
+    m_cardCount = 0; // Reset the card count to zero
     clear_hand(); // Clear the hand when the Hand object is destroyed
 }
-
-Hand::Hand(bool dealerHand) : m_top(nullptr), m_cardCount(0), m_dealerHand(dealerHand) {}
 
 void Hand::add_card(Card* card) {
     if (m_cardCount == 0) {
@@ -24,15 +24,34 @@ Card* Hand::get_top_card() {
     return m_top; // Return the top card in the hand
 }
 
+void Hand::show_top_card() {
+    if (m_top != nullptr) {
+        std::cout << "Top card: " << m_top->get_name() << std::endl; // Show the name of the top card
+    } else {
+        std::cout << "Hand is empty." << std::endl; // Indicate that the hand is empty
+    }
+}
+
 void Hand::show_hand() {
+    if(m_dealerHand) {
+        // only show cards up to the second to last card if this is the dealer's hand and showFullHand is false
+        Card* current = m_top; // Start from the top card
+        std::cout << "Hand: ";
+        while (current->get_next() != nullptr) {
+            std::cout << current->get_name() << " "; // Print the name of the current card
+            current = current->get_next(); // Move to the next card
+        }
+    }
+
+    // if this is the player's hand or the dealer's hand and showFullHand is true, show all cards
     Card* current = m_top; // Start from the top card
     std::cout << "Hand: ";
     while (current != nullptr) {
         std::cout << current->get_name() << " "; // Print the name of the current card
         current = current->get_next(); // Move to the next card
     }
-    std::cout << std::endl; // New line after showing all cards
-}
+}  
+
 
 void Hand::clear_hand() {
     while (m_top != nullptr) {

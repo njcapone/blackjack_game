@@ -9,12 +9,12 @@
 class Hand {
     public:
         Hand(); // default constructor
-        Hand(bool dealerHand); // constructor with parameter to indicate if this hand belongs to the dealer
         ~Hand(); // destructor
         // Note: We need a copy constructor to copy game hands whe
 
         void add_card(Card* card); // add a card to the hand
         Card* get_top_card(); // get the top card in the hand
+        void show_top_card(); // show the top card in the hand
         void show_hand(); // show all cards in the hand
         int get_total_value(); // get the total value of the hand
         void clear_hand(); // clear the hand
