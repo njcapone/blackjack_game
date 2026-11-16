@@ -3,6 +3,8 @@
 #include <random>
 #include <fstream>
 #include <sstream>
+#include <string>
+#include <random>
 
 /*Macros for game text & constants*/
 #define askNameText "What is your name? "      
@@ -25,6 +27,19 @@ bool Game::game_start() {
     m_dealer = new Dealer(); // Create a dealer
     m_gameOn = true; // Set the game state to on
     load_cards(); // Load cards helper function
+    return true;
+}
+
+bool Game::deal_hand(){
+    if(m_player->get_hand().get_size() == 0 && m_dealer->get_hand().get_size()){
+        m_player->hit(get_random_card());
+        m_player->hit(get_random_card());
+
+        m_dealer->hit(get_random_card());
+        m_dealer->hit(get_random_card());
+        return true;
+    }
+    return false;
 }
 /*
 Game loop steps
@@ -114,6 +129,7 @@ bool Game::game_loop() {
         }
     }
 }
+
 // judge the total value of the player's hand
 int Game::judge() {
     int playerValue = m_player->get_hand().get_total_value(); // Return the total value of the player's hand
@@ -130,6 +146,7 @@ int Game::judge() {
     }
 }
 
+// HELPERS //
 void Game::load_cards() {
     // Implement the logic to load cards from the file specified in m_cardFile
     // This function should read the card data and populate m_gameDeck accordingly
@@ -167,4 +184,32 @@ void Game::load_cards() {
         }
     }
     return;
+}
+
+Card* Game::get_random_card() {
+    // Implement the logic to get a random card from m_gameDeck
+    // This function should return a pointer to a Card object from the deck
+
+    // generate a random number and iterate throught the deck that many times
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    int deck_size = m_gameDeck.get_size() - 1;
+    int iterationsLimit = deck_size * 5; // there are about 4 - 5 decks in a game deck
+    std::uniform_int_distribution<> dis(0, iterationsLimit);
+    int iterate = dis(gen);
+
+    // iterate through game deck and pull a card
+    int count = 0;
+    Card* newCard = new Card();
+    Card* current = m_gameDeck.get_top_card();
+    while(count != iterate){
+        if (current->get_next() == nullptr){
+            current = m_gameDeck.get_top_card();
+        }else{
+            current = current->get_next();
+        }
+        count++;
+    }
+    newCard = new Card(*current);
+    return newCard;
 }

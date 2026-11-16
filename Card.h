@@ -11,11 +11,13 @@ class Card{
         Card(); // default constructor
         Card(std::string name, int value, bool isAce); // constructor with parameters, ace is false by default
         ~Card(); // destructor
-        std::string get_name();
+        Card(const Card& other); // copy constructor
+        std::string get_name() const;
         void set_name(std::string name);
         void set_value(int value);
-        bool is_ace(); // check if card is an Ace or not
-        Card* get_next(); // get the next card in the stack 
+        int get_value() const;
+        bool is_ace() const; // check if card is an Ace or not
+        Card* get_next() const; // get the next card in the stack 
         Card* set_next(Card* next); // set the next card in the stack
     private:
         friend class Hand; // Hand class can access private members of Card

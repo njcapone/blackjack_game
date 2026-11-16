@@ -89,3 +89,7 @@ int Hand::get_total_value() {
     return valueAcesLow; // return this by default if high value is over 21 or low value is higher than high value  
 }
 
+int Hand::get_size() {
+    return m_cardCount; // Return the number of cards in the hand
+}
+

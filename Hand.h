@@ -18,6 +18,7 @@ class Hand {
         void show_hand(); // show all cards in the hand
         int get_total_value(); // get the total value of the hand
         void clear_hand(); // clear the hand
+        int get_size(); // get the number of cards in the hand
 
     private:
         Card* m_top; // pointer to the top card in the hand

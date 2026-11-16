@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Dealer.h"
 #include "Hand.h"
+
 class Game{
     public:
         Game(); 
@@ -23,10 +24,11 @@ class Game{
         bool m_dealerWin;
 
         Hand m_gameDeck; // the deck of cards for the game, will be loaded and shuffled at the start of the game
-        
+
         // helper functions
         void load_cards(); // load cards from file
         void action(int choice); // handle player actions
+        void betting();
         
         // need a get random card function to get a random card from the deck
         Card* get_random_card(); // get a random card from the deck 

@@ -9,16 +9,26 @@ Card::Card(std::string name, int value, bool isAce) : m_name(name), m_value(valu
 
 Card::~Card() {
     // Destructor implementation (if needed)
+    m_next = nullptr;
+    m_value = 0;
+    m_name = "";
 }
 
-std::string Card::get_name() {
+Card::Card(const Card &other){
+    m_next = nullptr;
+    m_name = other.get_name();
+    m_value = other.get_value();
+    m_isAce = other.is_ace();
+
+}
+std::string Card::get_name() const{
     return m_name;
 }
 void Card::set_name(std::string name) {
     m_name = name;
 }
 
-int Card::get_value() {
+int Card::get_value() const{
     return m_value;
 }
 
@@ -36,6 +46,6 @@ void Card::set_value(int value) {
     m_value = value;
 }
 
-bool Card::is_ace() {
+bool Card::is_ace() const {
     return m_isAce;
 }
