@@ -93,15 +93,14 @@ bool Game::game_loop() {
 
         std::cout << "Current wallet: $" << m_player->get_wallet() << std::endl; // Show the player's current wallet
         
-        int playAgain;
+        int playAgain = 0;
         while(playAgain != 1 && playAgain != 2){
             std::cout << "Do you want to play again? (1) Yes (2) No: "; // Ask the player if they want to play again
             std::cin >> playAgain;
-            if(playAgain != 1 || playAgain != 2){
+            if(playAgain != 1 && playAgain != 2){
                 std::cout << invalidInputText << std::endl;
             }
         }
-        
 
         if (playAgain == 2) {
             end_game();
@@ -228,6 +227,7 @@ void Game::action(){
             case 3: // Quit
                 m_gameOn = false; // Set the game state to off
                 end_game();
+                return;
             default:
                 std::cout << invalidInputText << std::endl; // Handle invalid input
                 break;
