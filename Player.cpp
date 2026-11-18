@@ -35,10 +35,6 @@ Hand& Player::get_hand() {
     return m_hand;
 }
 
-void Player::hit(Card *card) {
-    // Implement the logic to add a card to the player's hand
-    // This function should interact with the game deck to draw a card and add it to the player's hand
-    m_hand.add_card(card);
-}
+
 
 

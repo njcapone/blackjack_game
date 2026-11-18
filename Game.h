@@ -27,8 +27,8 @@ class Game{
 
         // helper functions
         void load_cards(); // load cards from file
-        void action(int choice); // handle player actions
-        void betting();
+        void betting(); // handle betting system
+        void action(); // handle player actions
         
         // need a get random card function to get a random card from the deck
         Card* get_random_card(); // get a random card from the deck 

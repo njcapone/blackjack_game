@@ -17,7 +17,6 @@ class Player{
         void set_wallet(int value);
         void set_bet(int value);
         Hand& get_hand(); // return the hand of the player
-        virtual void hit(Card *card); // add a card to the hand
 
 
     private:

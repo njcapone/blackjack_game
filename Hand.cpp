@@ -37,9 +37,14 @@ void Hand::show_hand() {
     Card* current = m_top; // Start from the top card
     std::cout << "Hand: ";
     while (current != nullptr) {
-        std::cout << current->get_name(); // Print the name of the current card
+        if(current->get_next() == nullptr){
+            std::cout << current->get_name() << std::endl;
+        }else{
+            std::cout << current->get_name() << " | "; // Print the name of the current card
+        }
         current = current->get_next(); // Move to the next card
     }
+    std::cout << std::endl;
 }  
 
 
