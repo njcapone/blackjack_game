@@ -1,9 +1,9 @@
 #include <iostream>
 #include "Player.h"
 
-Player::Player() : m_name(""), m_wallet(50), m_hand() {}
+Player::Player() : m_name(""), m_wallet(50), m_hand(Hand()) {}
 
-Player::Player(std::string name, int wallet) : m_name(name), m_wallet(wallet) {}
+Player::Player(std::string name, int wallet) : m_name(name), m_wallet(wallet), m_hand(Hand()) {}
 
 Player::~Player() {} // here just in case
 
@@ -31,7 +31,7 @@ void Player::set_bet(int value) {
     m_bet = value;
 }
 
-Hand Player::get_hand() {
+Hand& Player::get_hand() {
     return m_hand;
 }
 

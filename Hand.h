@@ -26,4 +26,4 @@ class Hand {
         bool m_dealerHand; // true if this hand belongs to the dealer, false otherwise
 };
 
-#endif;
+#endif

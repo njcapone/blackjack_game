@@ -7,6 +7,7 @@
 class Dealer : public Player {
     public:
         Dealer(); // default constructor
+        ~Dealer();
         Card get_first_card();
         void hit(Card *card) override; // add a card to the hand
 };

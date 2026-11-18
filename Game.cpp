@@ -12,11 +12,11 @@
 #define invalidInputText "Invalid input. Please try again."
 #define endGameText "Thanks for playing. Here's your earnings: "
 
-Game::Game() : m_player(nullptr), m_dealer(nullptr), m_gameOn(false), m_playerWin(false), m_dealerWin(false) {}
+Game::Game() : m_player(nullptr), m_dealer(nullptr), m_gameOn(true), m_playerWin(false), m_dealerWin(false) {}
 
 Game::~Game() {
-    m_player->get_hand().clear_hand(); // Clear the player's hand
-    m_dealer->get_hand().clear_hand(); // Clear the dealer's hand
+    if(m_player) m_player->get_hand().clear_hand(); // Clear the player's hand
+    if(m_dealer) m_dealer->get_hand().clear_hand(); // Clear the dealer's hand
     delete m_player; // Clean up player object
     delete m_dealer; // Clean up dealer object
 }
@@ -27,6 +27,7 @@ bool Game::game_start() {
     m_dealer = new Dealer(); // Create a dealer
     m_gameOn = true; // Set the game state to on
     load_cards(); // Load cards helper function
+    game_loop();
     return true;
 }
 
@@ -56,12 +57,6 @@ bool Game::game_loop() {
     // This function should handle the flow of the game, including player actions, dealer actions, and determining the winner
     
     while (m_gameOn) { // Continue the loop while there is no winner and the player has money
-        if(m_player->get_hand().get_size() == 0 && m_dealer->get_hand().get_size() == 0){
-            deal_hand();
-        }
-
-        m_dealer->get_hand().show_top_card(); // Show the dealer's first card
-        m_player->get_hand().show_hand(); // Show the player's hand
         if (m_player->get_bet() == 0) {
             // set the player's bet
             std::cout << setBetText << m_player->get_wallet() << "): ";
@@ -69,6 +64,14 @@ bool Game::game_loop() {
             std::cin >> bet; // Get the player's bet
             m_player->set_bet(bet); // Set the player's bet
         }
+
+        if(m_player->get_hand().get_size() == 0 && m_dealer->get_hand().get_size() == 0){
+            deal_hand();
+        }
+
+        m_dealer->get_hand().show_top_card(); // Show the dealer's first card
+        m_player->get_hand().show_hand(); // Show the player's hand
+
 
         if (m_player->get_bet() > m_player->get_wallet()) {
             std::cout << "You cannot bet more than your wallet. Please try again." << std::endl;
@@ -80,25 +83,25 @@ bool Game::game_loop() {
 
         switch (action) {
             case 1: // Hit
-                m_player->hit(m_gameDeck.get_top_card()); // Player hits and gets a card from the game deck
-                m_dealer->hit(m_gameDeck.get_top_card()); // Dealer hits and gets a card from the game deck
+                m_player->hit(get_random_card()); // Player hits and gets a card from the game deck
+                m_dealer->hit(get_random_card()); // Dealer hits and gets a card from the game deck
                 m_dealer->get_hand().show_hand(); // Show the dealer's hand
                 m_player->get_hand().show_hand(); // Show the player's hand
                 break;
             case 2: // Stand
-                while (m_dealer->get_hand().get_total_value() < 17) { // Dealer hits until reaching 17 or higher
-                    m_dealer->hit(m_gameDeck.get_top_card());
-                }
+                m_dealer->hit(get_random_card());
                 m_dealer->get_hand().show_hand(); // Show the dealer's hand
                 m_player->get_hand().show_hand(); // Show the player's hand
                 break;
             case 3: // Quit
                 m_gameOn = false; // Set the game state to off
+                end_game();
                 return false; // Exit the game loop
             default:
                 std::cout << invalidInputText << std::endl; // Handle invalid input
-                break;
+                return false;
         }
+
         int result = judge(); // Call judge to determine if there is a winner after the player's action
         if(result == 1){
             std::cout << "Player wins!" << std::endl;
@@ -110,6 +113,13 @@ bool Game::game_loop() {
             m_player->set_bet(0); // Reset the player's bet
         }
 
+        if (m_player->get_wallet() <= 0) {
+            std::cout << "You have run out of money. Game over." << std::endl;
+            m_gameOn = false; // Set the game state to off
+            end_game();
+            return false; // Exit the game loop
+        }
+
         std::cout << "Current wallet: $" << m_player->get_wallet() << std::endl; // Show the player's current wallet
         
         std::cout << "Do you want to play again? (1) Yes (2) No: "; // Ask the player if they want to play again
@@ -117,6 +127,7 @@ bool Game::game_loop() {
         std::cin >> playAgain;
 
         if (playAgain == 2) {
+            end_game();
             m_gameOn = false; // Set the game state to off
             return false; // Exit the game loop
         } else if (playAgain == 1) {
@@ -127,12 +138,9 @@ bool Game::game_loop() {
             std::cout << invalidInputText << std::endl; // Handle invalid input
         }
 
-        if (m_player->get_wallet() <= 0) {
-            std::cout << "You have run out of money. Game over." << std::endl;
-            m_gameOn = false; // Set the game state to off
-            return false; // Exit the game loop
-        }
+
     }
+    return true;
 }
 
 bool Game::end_game(){
@@ -148,11 +156,9 @@ int Game::judge() {
     if (playerValue > dealerValue && playerValue <= 21) {
         m_playerWin = true;
         return 1; // Player wins
-    } else if (playerValue < dealerValue && dealerValue <= 21 || playerValue > 21) {
+    } else if ((playerValue < dealerValue && dealerValue <= 21) || playerValue > 21) {
         m_dealerWin = true;
         return -1; // Dealer wins
-    } else {
-        return 0; // no winner yet
     }
 }
 

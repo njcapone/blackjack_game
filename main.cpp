@@ -3,5 +3,7 @@
 
 int main(){
     // Game... start!
+    Game playGame;
+    playGame.game_start();
     return 0;
 }

@@ -2,10 +2,10 @@
 #include "Card.h"
 
 // define the default constructor
-Card::Card() : m_name(""), m_value(0), m_isAce(false) {}
+Card::Card() : m_name(""), m_value(0), m_isAce(false), m_next(nullptr) {}
 
 // define the constructor with parameters; ace is false by default
-Card::Card(std::string name, int value, bool isAce) : m_name(name), m_value(value), m_isAce(isAce) {}
+Card::Card(std::string name, int value, bool isAce) : m_name(name), m_value(value), m_isAce(isAce), m_next(nullptr) {}
 
 Card::~Card() {
     // Destructor implementation (if needed)
@@ -19,6 +19,15 @@ Card::Card(const Card &other){
     m_isAce = other.is_ace();
 
 }
+
+Card* Card::get_next() const {
+    return m_next;
+}
+
+void Card::set_next(Card *next) {
+    m_next = next;
+}
+
 std::string Card::get_name() const{
     return m_name;
 }

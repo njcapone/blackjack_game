@@ -4,9 +4,6 @@
 #include <string>
 // Card Parent Class
 class Card{
-    protected:
-        virtual int get_value();
-        virtual void toggle_value(); // only for Ace cards, toggles between 1 and 11
     public:
         Card(); // default constructor
         Card(std::string name, int value, bool isAce); // constructor with parameters, ace is false by default
@@ -18,7 +15,8 @@ class Card{
         int get_value() const;
         bool is_ace() const; // check if card is an Ace or not
         Card* get_next() const; // get the next card in the stack 
-        Card* set_next(Card* next); // set the next card in the stack
+        void set_next(Card* next); // set the next card in the stack
+        void toggle_value(); // only for Ace cards, toggles between 1 and 11
     private:
         friend class Hand; // Hand class can access private members of Card
         std::string m_name; // the player will see this

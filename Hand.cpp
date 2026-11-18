@@ -37,7 +37,7 @@ void Hand::show_hand() {
     Card* current = m_top; // Start from the top card
     std::cout << "Hand: ";
     while (current != nullptr) {
-        std::cout << current->get_name() << " "; // Print the name of the current card
+        std::cout << current->get_name(); // Print the name of the current card
         current = current->get_next(); // Move to the next card
     }
 }  
@@ -45,7 +45,6 @@ void Hand::show_hand() {
 
 void Hand::clear_hand() {
     if(m_top == nullptr){
-        std::cout << "Hand is empty!\n";
         return;
     } else {
         while (m_top != nullptr) {
