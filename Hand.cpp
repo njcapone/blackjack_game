@@ -33,16 +33,6 @@ void Hand::show_top_card() {
 }
 
 void Hand::show_hand() {
-    if(m_dealerHand) {
-        // only show cards up to the second to last card if this is the dealer's hand and showFullHand is false
-        Card* current = m_top; // Start from the top card
-        std::cout << "Hand: ";
-        while (current->get_next() != nullptr) {
-            std::cout << current->get_name() << " "; // Print the name of the current card
-            current = current->get_next(); // Move to the next card
-        }
-    }
-
     // if this is the player's hand or the dealer's hand and showFullHand is true, show all cards
     Card* current = m_top; // Start from the top card
     std::cout << "Hand: ";
@@ -54,12 +44,18 @@ void Hand::show_hand() {
 
 
 void Hand::clear_hand() {
-    while (m_top != nullptr) {
-        Card* temp = m_top; // Store the current top card
-        m_top = m_top->get_next(); // Move the top pointer to the next card
-        delete temp; // Delete the current top card
+    if(m_top == nullptr){
+        std::cout << "Hand is empty!\n";
+        return;
+    } else {
+        while (m_top != nullptr) {
+            Card* temp = m_top; // Store the current top card
+            m_top = m_top->get_next(); // Move the top pointer to the next card
+            delete temp; // Delete the current top card
+        }
+        m_cardCount = 0; // Reset the card count to zero
     }
-    m_cardCount = 0; // Reset the card count to zero
+    return;
 }
 
 int Hand::get_total_value() {

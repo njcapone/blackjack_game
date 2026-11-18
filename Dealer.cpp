@@ -17,7 +17,8 @@ void Dealer::hit(Card *card) {
         get_hand().add_card(card); // Add the card to the dealer's hand if the total value is less than 17
     }
     else {
-        std::cout << "Dealer stands with a total value of " << get_hand().get_total_value() << std::endl;
+        get_hand().show_hand();
+        std::cout << "Dealer hand now has a total value of " << get_hand().get_total_value() << std::endl;
     }
 }
 

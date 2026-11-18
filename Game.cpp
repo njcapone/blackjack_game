@@ -1,6 +1,5 @@
 #include <iostream>
 #include "Game.h"
-#include <random>
 #include <fstream>
 #include <sstream>
 #include <string>
@@ -11,6 +10,7 @@
 #define actionText "What would you like to do? (1) Hit (2) Stand (3) Quit: "
 #define setBetText "How much would you like to bet? (Current wallet: $"
 #define invalidInputText "Invalid input. Please try again."
+#define endGameText "Thanks for playing. Here's your earnings: "
 
 Game::Game() : m_player(nullptr), m_dealer(nullptr), m_gameOn(false), m_playerWin(false), m_dealerWin(false) {}
 
@@ -31,7 +31,7 @@ bool Game::game_start() {
 }
 
 bool Game::deal_hand(){
-    if(m_player->get_hand().get_size() == 0 && m_dealer->get_hand().get_size()){
+    if(m_player->get_hand().get_size() == 0 && m_dealer->get_hand().get_size() == 0){
         m_player->hit(get_random_card());
         m_player->hit(get_random_card());
 
@@ -56,6 +56,10 @@ bool Game::game_loop() {
     // This function should handle the flow of the game, including player actions, dealer actions, and determining the winner
     
     while (m_gameOn) { // Continue the loop while there is no winner and the player has money
+        if(m_player->get_hand().get_size() == 0 && m_dealer->get_hand().get_size() == 0){
+            deal_hand();
+        }
+
         m_dealer->get_hand().show_top_card(); // Show the dealer's first card
         m_player->get_hand().show_hand(); // Show the player's hand
         if (m_player->get_bet() == 0) {
@@ -111,6 +115,7 @@ bool Game::game_loop() {
         std::cout << "Do you want to play again? (1) Yes (2) No: "; // Ask the player if they want to play again
         int playAgain;
         std::cin >> playAgain;
+
         if (playAgain == 2) {
             m_gameOn = false; // Set the game state to off
             return false; // Exit the game loop
@@ -130,6 +135,11 @@ bool Game::game_loop() {
     }
 }
 
+bool Game::end_game(){
+    // display earnings (wallet)
+    std::cout << endGameText << m_player->get_wallet() << std::endl;
+    return true;
+}
 // judge the total value of the player's hand
 int Game::judge() {
     int playerValue = m_player->get_hand().get_total_value(); // Return the total value of the player's hand
@@ -200,7 +210,6 @@ Card* Game::get_random_card() {
 
     // iterate through game deck and pull a card
     int count = 0;
-    Card* newCard = new Card();
     Card* current = m_gameDeck.get_top_card();
     while(count != iterate){
         if (current->get_next() == nullptr){
@@ -210,6 +219,6 @@ Card* Game::get_random_card() {
         }
         count++;
     }
-    newCard = new Card(*current);
+    Card* newCard = new Card(*current);
     return newCard;
 }

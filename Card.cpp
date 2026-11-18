@@ -10,8 +10,6 @@ Card::Card(std::string name, int value, bool isAce) : m_name(name), m_value(valu
 Card::~Card() {
     // Destructor implementation (if needed)
     m_next = nullptr;
-    m_value = 0;
-    m_name = "";
 }
 
 Card::Card(const Card &other){
